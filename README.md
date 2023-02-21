@@ -51,6 +51,7 @@ Food recipes website developed using Gatsby and Contentful as a headless CMS.
     ```properties
     CONTENTFUL_API_KEY=<Use existing key (Delivery API) or create a new one in Settings-API Keys>
     GATSBY_CONTACT_FORM_URL=<Any form submission API URL (e.g. formspree.io)>
+    GATSBY_GTM_ID=<Google Tag Manager container ID>
     ```
 
     Navigate into your root site’s directory and run:

@@ -42,5 +42,14 @@ module.exports = {
         display: "swap",
       },
     },
+    {
+      resolve: "gatsby-plugin-google-tagmanager",
+      options: {
+        id: process.env.GATSBY_GTM_ID,
+        includeInDevelopment: false,
+        routeChangeEventName: "gatsby-route-change",
+        enableWebVitalsTracking: true,
+      },
+    },
   ],
 };
