@@ -552,7 +552,6 @@ form>*:last-child {
     .about-page {
         grid-template-columns: 1fr 1fr;
         align-items: center;
-        height: 530px;
     }
 
     .about-img {
@@ -711,10 +710,6 @@ form>*:last-child {
 }
 
 @media screen and (min-width: 1200px) {
-    .about-page {
-        height: 470px;
-    }
-
     .recipe h5 {
         font-size: 1.15rem;
     }

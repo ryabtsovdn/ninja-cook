@@ -2,5 +2,6 @@
   "title": "Ninja Cook",
   "slogan": "No fluff, just recipes",
   "grill": "grill",
-  "buildWithGatsby": "Built with <L>Gatsby</L>"
+  "buildWithGatsby": "Built with <L>Gatsby</L>",
+  "lookAtThis": "Look at this Awesomesouce!"
 }
