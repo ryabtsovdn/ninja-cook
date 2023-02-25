@@ -1,5 +1,6 @@
 import React from "react";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { BsClockHistory, BsClock, BsPeople } from "react-icons/bs";
 import slugify from "slugify";
@@ -7,14 +8,29 @@ import slugify from "slugify";
 import Layout from "../components/Layout";
 import Meta from "../components/Meta";
 
-export const Head = ({ data }) => {
+export const Head = ({ data, pageContext: { language } }) => {
   const { title, description } = data.contentfulRecipe;
 
-  return <Meta title={`Ninja Cook - ${title}`} description={description} />;
+  return (
+    <Meta
+      title={`Ninja Cook - ${title}`}
+      description={description}
+      language={language}
+    />
+  );
 };
 
 export const query = graphql`
-  query getSingleRecipe($title: String) {
+  query getSingleRecipe($title: String, $language: String!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
     contentfulRecipe(title: { eq: $title }) {
       title
       content {
@@ -37,6 +53,7 @@ export const query = graphql`
 `;
 
 function RecipeTemplate({ data }) {
+  const { t } = useTranslation();
   const {
     title,
     cookTime,
@@ -46,7 +63,6 @@ function RecipeTemplate({ data }) {
     servings,
     image,
   } = data.contentfulRecipe;
-
   const { tags, tools, ingredients, instructions } = content;
 
   return (
@@ -61,22 +77,22 @@ function RecipeTemplate({ data }) {
               <div className="recipe-icons">
                 <article>
                   <BsClock />
-                  <h5>Prep time</h5>
-                  <p>{prepTime} min.</p>
+                  <h5>{t("recipe:prepTime")}</h5>
+                  <p>{t("recipe:minCount", { count: prepTime })}</p>
                 </article>
                 <article>
                   <BsClockHistory />
-                  <h5>Cook time</h5>
-                  <p>{cookTime} min.</p>
+                  <h5>{t("recipe:cookTime")}</h5>
+                  <p>{t("recipe:minCount", { count: cookTime })}</p>
                 </article>
                 <article>
                   <BsPeople />
-                  <h5>Servings</h5>
+                  <h5>{t("recipe:servings")}</h5>
                   <p>{servings}</p>
                 </article>
               </div>
               <p className="recipe-tags">
-                Tags:
+                {t("menu:tags")}:
                 {tags.map((tag) => {
                   return (
                     <Link
@@ -92,12 +108,12 @@ function RecipeTemplate({ data }) {
           </section>
           <section className="recipe-content">
             <article>
-              <h4>Instructions</h4>
+              <h4>{t("recipe:instructions")}</h4>
               {instructions.map((item, index) => {
                 return (
                   <div key={index} className="single-instruction">
                     <header>
-                      <p>Step {index + 1}</p>
+                      <p>{t("recipe:step", { number: index + 1 })}</p>
                       <div></div>
                     </header>
                     <p>{item}</p>
@@ -107,7 +123,7 @@ function RecipeTemplate({ data }) {
             </article>
             <article className="second-column">
               <div>
-                <h4>Ingredients</h4>
+                <h4>{t("recipe:ingredients")}</h4>
                 {ingredients.map((item, index) => {
                   return (
                     <p key={index} className="single-ingredient">
@@ -117,7 +133,7 @@ function RecipeTemplate({ data }) {
                 })}
               </div>
               <div>
-                <h4>Tools</h4>
+                <h4>{t("recipe:tools")}</h4>
                 {tools.map((item, index) => {
                   return (
                     <p key={index} className="single-tool">

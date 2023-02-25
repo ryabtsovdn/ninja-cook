@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "gatsby";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { FiAlignJustify } from "react-icons/fi";
 
 import logo from "../assets/images/logo.png";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <nav className="navbar">
@@ -20,7 +21,7 @@ const Navbar = () => {
         </div>
         <div className={`nav-links${show ? " show-links" : ""}`}>
           <Link to="/" className="nav-link" activeClassName="active-link">
-            Home
+            {t("menu:home")}
           </Link>
           <Link
             to="/recipes"
@@ -28,7 +29,7 @@ const Navbar = () => {
             activeClassName="active-link"
             onClick={() => setShow(!show)}
           >
-            Recipes
+            {t("menu:recipes")}
           </Link>
           <Link
             to="/tags"
@@ -36,7 +37,7 @@ const Navbar = () => {
             activeClassName="active-link"
             onClick={() => setShow(!show)}
           >
-            Tags
+            {t("menu:tags")}
           </Link>
           <Link
             to="/about"
@@ -44,11 +45,11 @@ const Navbar = () => {
             activeClassName="active-link"
             onClick={() => setShow(!show)}
           >
-            About
+            {t("menu:about")}
           </Link>
           <div className="nav-link contact-link">
             <Link to="/contact" className="btn" onClick={() => setShow(!show)}>
-              Contact
+              {t("menu:contact")}
             </Link>
           </div>
         </div>

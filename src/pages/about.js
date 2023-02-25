@@ -1,15 +1,27 @@
 import React from "react";
+import { graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
-import { Link, graphql } from "gatsby";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 
 import Layout from "../components/Layout";
 import RecipesList from "../components/RecipesList";
 import Meta from "../components/Meta";
 
-export const Head = () => <Meta title="Ninja Cook - About" />;
+export const Head = ({ pageContext: { language } }) => (
+  <Meta title="Ninja Cook - About" language={language} />
+);
 
 export const query = graphql`
-  query {
+  query ($language: String!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
     allContentfulRecipe(
       sort: { title: ASC }
       filter: { featured: { eq: true } }
@@ -30,27 +42,18 @@ export const query = graphql`
 
 function About({ data }) {
   const recipes = data.allContentfulRecipe.nodes;
+  const { t } = useTranslation();
 
   return (
     <Layout>
       <main className="page">
         <section className="about-page">
           <article>
-            <h2>About Ninja Cook</h2>
-            <p>
-              Whether you’re looking for quick weekday meal ideas or something
-              special to impress your guests, our easy-to-follow recipes let you
-              create delicious meals, snacks and drinks at home – no matter your
-              experience or confidence in the kitchen.
-            </p>
-            <p>
-              Cooking is about more than just food – it brings people together.
-              That’s why we do our best to champion seasonal ingredients,
-              feature recipe inspiration from around the globe and encourage
-              cooking with the whole family.
-            </p>
+            <h2>{t("about:title")}</h2>
+            <p>{t("about:p1")}</p>
+            <p>{t("about:p2")}</p>
             <Link to="/contact" className="btn">
-              Contact
+              {t("menu:contact")}
             </Link>
           </article>
           <StaticImage
@@ -60,7 +63,7 @@ function About({ data }) {
           />
         </section>
         <section className="featured-recipes">
-          <h5>Look at this Awesomesouce!</h5>
+          <h5>{t("app:lookAtThis")}</h5>
           <RecipesList recipes={recipes} />
         </section>
       </main>

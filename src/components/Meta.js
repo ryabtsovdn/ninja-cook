@@ -12,7 +12,8 @@ const query = graphql`
   }
 `;
 
-function Meta({ title, description, children }) {
+function Meta(props) {
+  const { language, title, description, children } = props;
   const data = useStaticQuery(query);
   const siteMeta = data.site.siteMetadata;
   const seo = {
@@ -22,7 +23,7 @@ function Meta({ title, description, children }) {
 
   return (
     <>
-      <html lang="en" />
+      <html lang={language} />
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       {children}

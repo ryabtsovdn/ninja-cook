@@ -1,0 +1,12 @@
+{
+  "listPrep": "Prep: {{time}} min",
+  "listCook": "Cook: {{time}} min",
+  "prepTime": "Prep time",
+  "cookTime": "Cook time",
+  "minCount": "{{count}} min.",
+  "servings": "Servings",
+  "instructions": "Instructions",
+  "step": "Step {{number}}",
+  "ingredients": "Ingredients",
+  "tools": "Tools"
+}

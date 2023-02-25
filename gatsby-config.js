@@ -51,5 +51,25 @@ module.exports = {
         enableWebVitalsTracking: true,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/locales`,
+        name: `locale`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-react-i18next`,
+      options: {
+        localeJsonSourceName: `locale`,
+        languages: [`ru`, `en`],
+        defaultLanguage: `ru`,
+        i18nextOptions: {
+          interpolation: {
+            escapeValue: false,
+          },
+        },
+      },
+    },
   ],
 };

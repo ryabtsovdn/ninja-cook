@@ -1,0 +1,11 @@
+{
+  "title": "Get in touch",
+  "p1": "Didn't find what you've been looking for? Or maybe you'd like to share a great recipe or just say thank you?",
+  "p2": "Drop us a line. We'll get back to you as soon as possible.",
+  "form": {
+    "nameLabel": "Your name",
+    "emailLabel": "Your email",
+    "msgLabel": "Message",
+    "btnTitle": "Submit"
+  }
+}
