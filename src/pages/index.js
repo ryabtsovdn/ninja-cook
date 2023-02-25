@@ -34,15 +34,15 @@ function Home() {
         <header className="hero">
           <StaticImage
             src="../assets/images/main.jpeg"
-            alt={t("grill")}
+            alt={t("common:grill")}
             className="hero-img"
             placeholder="dominantColor"
             layout="fullWidth"
           />
           <div className="hero-container">
             <div className="hero-text">
-              <h1>{t("title")}</h1>
-              <h4>{t("slogan")}</h4>
+              <h1>{t("app:title")}</h1>
+              <h4>{t("app:slogan")}</h4>
             </div>
           </div>
         </header>

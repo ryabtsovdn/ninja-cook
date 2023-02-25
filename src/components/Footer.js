@@ -7,9 +7,9 @@ function Footer() {
   return (
     <footer className="page-footer">
       <p>
-        &copy; {new Date().getFullYear()} <span>{t("title")}</span>.{" "}
+        &copy; {new Date().getFullYear()} <span>{t("app:title")}</span>.{" "}
         <Trans
-          i18nKey="buildWithGatsby"
+          i18nKey="app:buildWithGatsby"
           components={{ L: <a href="https://gatsbyjs.com/">Gatsby</a> }}
         />
       </p>

@@ -63,7 +63,7 @@ function About({ data }) {
           />
         </section>
         <section className="featured-recipes">
-          <h5>{t("lookAtThis")}</h5>
+          <h5>{t("app:lookAtThis")}</h5>
           <RecipesList recipes={recipes} />
         </section>
       </main>
