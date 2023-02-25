@@ -1,4 +1,12 @@
 {
   "listPrep": "Подготовка: {{time}} мин",
-  "listCook": "Готовка: {{time}} мин"
+  "listCook": "Готовка: {{time}} мин",
+  "prepTime": "Подготовка",
+  "cookTime": "Приготовление",
+  "minCount": "{{count}} мин",
+  "servings": "Порции",
+  "instructions": "Инструкции",
+  "step": "Шаг {{number}}",
+  "ingredients": "Ингридиенты",
+  "tools": "Инструменты"
 }
