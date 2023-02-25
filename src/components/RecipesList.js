@@ -1,9 +1,11 @@
 import React from "react";
-import { Link } from "gatsby";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import slugify from "slugify";
 
 function RecipesList({ recipes = [] }) {
+  const { t } = useTranslation();
+
   return (
     <div className="recipes-list">
       {recipes.map((recipe) => {
@@ -23,7 +25,8 @@ function RecipesList({ recipes = [] }) {
             />
             <h5>{title}</h5>
             <p>
-              Prep: {prepTime}min | Cook: {cookTime}min
+              {t("recipe:listPrep", { time: prepTime })} |{" "}
+              {t("recipe:listCook", { time: cookTime })}
             </p>
           </Link>
         );
