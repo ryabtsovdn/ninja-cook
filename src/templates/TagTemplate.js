@@ -1,16 +1,25 @@
-import { graphql } from "gatsby";
 import React from "react";
+import { graphql } from "gatsby";
 
 import Layout from "../components/Layout";
 import RecipesList from "../components/RecipesList";
 import Meta from "../components/Meta";
 
-export const Head = ({ pageContext: { tag } }) => {
-  return <Meta title={`Ninja Cook - ${tag} recipes`} />;
-};
+export const Head = ({ pageContext: { tag, language } }) => (
+  <Meta title={`Ninja Cook - ${tag} recipes`} language={language} />
+);
 
 export const query = graphql`
-  query getRecipesByTag($tag: String) {
+  query getRecipesByTag($tag: String, $language: String!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
     allContentfulRecipe(
       sort: { title: ASC }
       filter: { content: { tags: { eq: $tag } } }

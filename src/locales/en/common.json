@@ -1,3 +1,4 @@
 {
-  "grill": "grill"
+  "grill": "grill",
+  "recipesCount": "Recipes: {{count}}"
 }

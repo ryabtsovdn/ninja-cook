@@ -1,15 +1,27 @@
 import React from "react";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 import slugify from "slugify";
 
 import Layout from "../components/Layout";
 import setupTags from "../utils/setupTags";
 import Meta from "../components/Meta";
 
-export const Head = () => <Meta title="Ninja Cook - All Tags" />;
+export const Head = ({ pageContext: { language } }) => (
+  <Meta title="Ninja Cook - All Tags" language={language} />
+);
 
 export const query = graphql`
-  query {
+  query ($language: String!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
     allContentfulRecipe {
       nodes {
         content {
@@ -21,6 +33,7 @@ export const query = graphql`
 `;
 
 function Tags({ data }) {
+  const { t } = useTranslation();
   const tags = setupTags(data.allContentfulRecipe.nodes);
 
   return (
@@ -37,7 +50,7 @@ function Tags({ data }) {
                 className="tag"
               >
                 <h5>{text}</h5>
-                <p>{value} recipe</p>
+                <p>{t("common:recipesCount", { count: value })}</p>
               </Link>
             );
           })}
