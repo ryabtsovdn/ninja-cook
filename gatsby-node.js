@@ -3,7 +3,7 @@ const path = require("path");
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const result = await graphql(`
+  const tagsData = await graphql(`
     query GetTags {
       allContentfulRecipe {
         nodes {
@@ -11,20 +11,29 @@ exports.createPages = async ({ graphql, actions }) => {
             slug
             title
           }
+          node_locale
         }
       }
     }
   `);
 
-  const allTags = result.data.allContentfulRecipe.nodes.reduce((acc, item) => {
-    const { tags } = item;
+  const allTags = tagsData.data.allContentfulRecipe.nodes.reduce(
+    (acc, item) => {
+      const { tags, node_locale } = item;
 
-    tags.forEach((tag) => {
-      acc[tag.slug] = tag;
-    });
+      tags.forEach(({ slug, title }) => {
+        if (!acc[slug]) {
+          acc[slug] = { title: {} };
+        }
 
-    return acc;
-  }, {});
+        acc[slug].slug = slug;
+        acc[slug].title[node_locale] = title;
+      });
+
+      return acc;
+    },
+    {}
+  );
 
   Object.keys(allTags).forEach((slug) => {
     createPage({

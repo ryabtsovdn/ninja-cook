@@ -22,7 +22,10 @@ export const query = graphql`
     }
     allContentfulRecipe(
       sort: { title: ASC }
-      filter: { tags: { elemMatch: { slug: { eq: $slug } } } }
+      filter: {
+        node_locale: { eq: $language }
+        tags: { elemMatch: { slug: { eq: $slug } } }
+      }
     ) {
       nodes {
         id
@@ -45,13 +48,13 @@ export const query = graphql`
 `;
 
 function TagTemplate({ pageContext, data }) {
-  const { title } = pageContext;
+  const { title, language } = pageContext;
   const recipes = data.allContentfulRecipe.nodes;
 
   return (
     <Layout>
       <main className="page">
-        <h2>{title}</h2>
+        <h2>{title[language]}</h2>
         <div className="tag-recipes">
           <RecipesList recipes={recipes} />
         </div>
