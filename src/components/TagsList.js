@@ -1,12 +1,13 @@
 import React from "react";
-import { Link, useTranslation } from "gatsby-plugin-react-i18next";
+import { Link, useTranslation, useI18next } from "gatsby-plugin-react-i18next";
 import slugify from "slugify";
 
 import setupTags from "../utils/setupTags";
 
 function TagsList({ recipes }) {
+  const { language } = useI18next();
   const { t } = useTranslation();
-  const tags = setupTags(recipes);
+  const tags = setupTags(recipes, language);
 
   return (
     <div className="tag-container">
