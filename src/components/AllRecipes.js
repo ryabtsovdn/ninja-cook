@@ -13,12 +13,13 @@ const query = graphql`
         cookTime
         prepTime
         title
+        tags {
+          slug
+          title
+        }
         image {
           id
           gatsbyImageData(layout: CONSTRAINED, placeholder: BLURRED)
-        }
-        content {
-          tags
         }
         node_locale
       }

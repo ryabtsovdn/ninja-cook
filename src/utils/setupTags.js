@@ -2,17 +2,30 @@ const setupTags = (recipes, language) => {
   const allTags = recipes
     .filter(({ node_locale }) => node_locale === language)
     .reduce((acc, item) => {
-      const tags = item.content.tags;
+      const tags = item.tags;
 
       tags.forEach((tag) => {
-        acc[tag] = (acc[tag] || 0) + 1;
+        const { slug, title } = tag;
+
+        if (!acc[slug]) {
+          acc[slug] = { text: title, count: 0 };
+        }
+
+        acc[slug].count++;
       });
 
       return acc;
     }, {});
 
-  const sortedTags = Object.entries(allTags).sort((a, b) => {
-    return a[0].localeCompare(b[0]);
+  const tagsArray = Object.keys(allTags).reduce((acc, slug) => {
+    const { text, count } = allTags[slug];
+    acc.push([slug, text, count]);
+
+    return acc;
+  }, []);
+
+  const sortedTags = tagsArray.sort((a, b) => {
+    return a[1].localeCompare(b[1]);
   });
 
   return sortedTags;
