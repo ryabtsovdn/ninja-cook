@@ -10,7 +10,7 @@ export const Head = ({ pageContext: { tag, language } }) => (
 );
 
 export const query = graphql`
-  query getRecipesByTag($tag: String, $language: String!) {
+  query getRecipesByTag($slug: String, $language: String!) {
     locales: allLocale(filter: { language: { eq: $language } }) {
       edges {
         node {
@@ -22,33 +22,36 @@ export const query = graphql`
     }
     allContentfulRecipe(
       sort: { title: ASC }
-      filter: { content: { tags: { eq: $tag } } }
+      filter: { tags: { elemMatch: { slug: { eq: $slug } } } }
     ) {
       nodes {
         id
+        slug
         cookTime
         prepTime
         title
+        tags {
+          slug
+          title
+        }
         image {
           id
           gatsbyImageData(layout: CONSTRAINED, placeholder: BLURRED)
         }
-        content {
-          tags
-        }
+        node_locale
       }
     }
   }
 `;
 
 function TagTemplate({ pageContext, data }) {
-  const { tag } = pageContext;
+  const { title } = pageContext;
   const recipes = data.allContentfulRecipe.nodes;
 
   return (
     <Layout>
       <main className="page">
-        <h2>{tag}</h2>
+        <h2>{title}</h2>
         <div className="tag-recipes">
           <RecipesList recipes={recipes} />
         </div>

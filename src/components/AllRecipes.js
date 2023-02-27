@@ -9,16 +9,19 @@ const query = graphql`
     allContentfulRecipe(sort: { title: ASC }) {
       nodes {
         id
+        slug
         cookTime
         prepTime
         title
+        tags {
+          slug
+          title
+        }
         image {
           id
           gatsbyImageData(layout: CONSTRAINED, placeholder: BLURRED)
         }
-        content {
-          tags
-        }
+        node_locale
       }
     }
   }

@@ -27,13 +27,15 @@ export const query = graphql`
     ) {
       nodes {
         id
+        slug
+        title
         cookTime
         prepTime
-        title
         image {
           id
           gatsbyImageData(layout: CONSTRAINED, placeholder: DOMINANT_COLOR)
         }
+        node_locale
       }
     }
   }
