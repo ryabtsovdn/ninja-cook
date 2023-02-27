@@ -9,6 +9,7 @@ const query = graphql`
     allContentfulRecipe(sort: { title: ASC }) {
       nodes {
         id
+        slug
         cookTime
         prepTime
         title
@@ -19,6 +20,7 @@ const query = graphql`
         content {
           tags
         }
+        node_locale
       }
     }
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
-import { Link, useTranslation } from "gatsby-plugin-react-i18next";
+import { Link, useTranslation, useI18next } from "gatsby-plugin-react-i18next";
 import slugify from "slugify";
 
 import Layout from "../components/Layout";
@@ -24,17 +24,20 @@ export const query = graphql`
     }
     allContentfulRecipe {
       nodes {
+        slug
         content {
           tags
         }
+        node_locale
       }
     }
   }
 `;
 
 function Tags({ data }) {
+  const { language } = useI18next();
   const { t } = useTranslation();
-  const tags = setupTags(data.allContentfulRecipe.nodes);
+  const tags = setupTags(data.allContentfulRecipe.nodes, language);
 
   return (
     <Layout>

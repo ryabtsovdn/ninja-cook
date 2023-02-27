@@ -26,6 +26,7 @@ export const query = graphql`
     ) {
       nodes {
         id
+        slug
         cookTime
         prepTime
         title
@@ -36,6 +37,7 @@ export const query = graphql`
         content {
           tags
         }
+        node_locale
       }
     }
   }

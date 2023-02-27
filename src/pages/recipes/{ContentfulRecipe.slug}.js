@@ -5,8 +5,8 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { BsClockHistory, BsClock, BsPeople } from "react-icons/bs";
 import slugify from "slugify";
 
-import Layout from "../components/Layout";
-import Meta from "../components/Meta";
+import Layout from "../../components/Layout";
+import Meta from "../../components/Meta";
 
 export const Head = ({ data, pageContext: { language } }) => {
   const { title, description } = data.contentfulRecipe;
@@ -21,7 +21,7 @@ export const Head = ({ data, pageContext: { language } }) => {
 };
 
 export const query = graphql`
-  query getSingleRecipe($title: String, $language: String!) {
+  query getSingleRecipe($slug: String, $language: String!) {
     locales: allLocale(filter: { language: { eq: $language } }) {
       edges {
         node {
@@ -31,7 +31,8 @@ export const query = graphql`
         }
       }
     }
-    contentfulRecipe(title: { eq: $title }) {
+    contentfulRecipe(slug: { eq: $slug }, node_locale: { eq: $language }) {
+      slug
       title
       content {
         ingredients
@@ -48,6 +49,7 @@ export const query = graphql`
       image {
         gatsbyImageData(layout: CONSTRAINED, placeholder: BLURRED)
       }
+      node_locale
     }
   }
 `;
