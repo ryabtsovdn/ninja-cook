@@ -476,6 +476,7 @@ form>*:last-child {
 /* Footer */
 /*#########*/
 .page-footer {
+    position: relative;
     text-align: center;
     height: 4rem;
     display: flex;
@@ -485,16 +486,25 @@ form>*:last-child {
     color: var(--white);
 }
 
+.page-footer .container-center {
+    display: flex;
+    align-items: center;
+}
+
 .page-footer h5 {
     margin-bottom: 0;
 }
 
 .page-footer p {
     margin-bottom: 0;
+    text-align: left;
 }
 
-.page-footer span,
-.page-footer a {
+.page-footer .made {
+    white-space: nowrap;
+}
+
+.page-footer .highlight {
     color: var(--primary-500);
 }
 
@@ -872,4 +882,56 @@ form>*:last-child {
     padding-bottom: 0.75rem;
     color: var(--primary-500);
     text-transform: capitalize;
+}
+
+/*#########*/
+/* Language switcher
+/*#########*/
+.language-switcher {
+    position: relative;
+    margin-left: auto;
+}
+
+.language-switcher button {
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    height: 32px;
+}
+
+.language-switcher.opened button {
+    border-radius: 0 0 6px 6px;
+}
+
+.language-switcher button svg {
+    margin-left: 12px;
+}
+
+.language-switcher ul {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    transform: translateY(-100%);
+    border-radius: 6px;
+}
+
+.language-switcher li {
+    width: 100%;
+}
+
+.language-switcher a {
+    color: var(--white);
+    display: flex;
+    justify-content: left;
+    padding: 0px 12px;
+    border-radius: 0;
+}
+
+.language-switcher li:first-child a {
+    border-radius: 6px 6px 0 0;
 }
